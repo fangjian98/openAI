@@ -53,7 +53,7 @@ class Student{
 
     public static void main(String[] args){
         Student stu1 = new Student("张三", 20, 100);
-        Student stu2 = new Student("张三", 20, 100);
+        Student stu2 = new Student("张三", 20, 200);
         System.out.println(stu1.equals(stu2));
         System.out.println(stu1.hashCode());
         System.out.println(stu2.hashCode());
