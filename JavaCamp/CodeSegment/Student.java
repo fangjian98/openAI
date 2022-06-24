@@ -1,4 +1,6 @@
-class Student{
+package CodeSegment;
+
+public class Student{
     //学生类
     private String name;
     private int age;

@@ -1,9 +1,10 @@
+package CodeSegment;
+
 import java.util.ArrayList;
 
 public class Sort{
     public static void main(String[] args) {
-        System.out.println("Hello Sort!");
-        
+        System.out.println("Hello Sort!");        
     }
 
     //1.冒泡排序

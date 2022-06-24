@@ -306,27 +306,27 @@ public class FileUtils{
     }
 
     //Uri转File
-    public static File uri2File(Context context, Uri uri) {
-        String scheme = uri.getScheme();
-        String authority = uri.getAuthority();
-        String path = uri.getPath();
-        if (scheme.equals("file")) {
-            return new File(path);
-        } else if (scheme.equals("content")) {
-            String[] proj = {MediaStore.Images.Media.DATA};
-            Cursor cursor = context.getContentResolver().query(uri, proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return new File(cursor.getString(column_index));
-        } else {
-            return null;
-        }
-    }
+    // public static File uri2File(Context context, Uri uri) {
+    //     String scheme = uri.getScheme();
+    //     String authority = uri.getAuthority();
+    //     String path = uri.getPath();
+    //     if (scheme.equals("file")) {
+    //         return new File(path);
+    //     } else if (scheme.equals("content")) {
+    //         String[] proj = {MediaStore.Images.Media.DATA};
+    //         Cursor cursor = context.getContentResolver().query(uri, proj, null, null, null);
+    //         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+    //         cursor.moveToFirst();
+    //         return new File(cursor.getString(column_index));
+    //     } else {
+    //         return null;
+    //     }
+    // }
 
     //File转Uri
-    public static Uri file2Uri(Context context, File file) {
-        return Uri.fromFile(file);
-    }
+    // public static Uri file2Uri(Context context, File file) {
+    //     return Uri.fromFile(file);
+    // }
 
     //Url转File
     public static File url2File(String url) {
@@ -345,16 +345,16 @@ public class FileUtils{
     }
 
     //Android Url转File
-    public static File androidUrl2File(Context context, Uri uri) {
-        String path = uri.getPath();
-        return new File(path);
-    }
+    // public static File androidUrl2File(Context context, Uri uri) {
+    //     String path = uri.getPath();
+    //     return new File(path);
+    // }
 
     //Android Url转Uri
-    public static Uri androidUrl2Uri(Context context, Uri uri) {
-        String path = uri.getPath();
-        return Uri.fromFile(new File(path));
-    }
+    // public static Uri androidUrl2Uri(Context context, Uri uri) {
+    //     String path = uri.getPath();
+    //     return Uri.fromFile(new File(path));
+    // }
 
     //文件加密
     public static String encryptFile(String filePath, String key) {
