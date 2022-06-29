@@ -7,6 +7,10 @@ public class Student {
     private int score;
     private int sex;
 
+    public Student() {
+        new Student("name", 1, 1, 1);
+    }
+
     public Student(String name, int age, int score) {
         new Student(name, age, score, 1);
     }
