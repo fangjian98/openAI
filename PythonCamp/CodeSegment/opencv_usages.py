@@ -1,8 +1,12 @@
 # openCV 常用用法
 
+# 理解级联分类器：分类器，判别某个事物是否属于某种分类的器件，两种结果：是、否
+# 级联分类器： 可以理解为将N个单类的分类器串联起来。如果一个事物能属于这一系列串联起来的的所有分类器，则最终结果就是 是，若有一项不符，则判定为否。
+# 比如人脸，它有很多属性，我们将每个属性做一成个分类器，如果一个模型符合了我们定义的人脸的所有属性，则我们人为这个模型就是一个人脸。那么这些属性是指什么呢？ 比如人脸需要有两条眉毛，两只眼睛，一个鼻子，一张嘴，一个大概U形状的下巴或者是轮廓等等
+# haarcascades模型位于/data/haarcascades目录下
+
 # 导入opencv库
 import os
-
 import cv2
 
 
@@ -66,6 +70,24 @@ def eye_detect(img_path):
     cv2.imshow('image', img)
     # 等待关闭窗口
     cv2.waitKey(0)
+
+
+def face_eye_detect(image_path):
+    face_cascade = cv2.CascadeClassifier('../haarcascades/haarcascade_frontalface_default.xml')
+    eye_cascade = cv2.CascadeClassifier('../haarcascades/haarcascade_eye.xml')
+    img = cv2.imread(image_path)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    # 现在我们在图像中找到了脸部。如果找到面部，它会以Rect（x，y，w，h）的形式返回检测到的面部的位置。一旦我们获得了这些位置，
+    # 我们就可以为脸部创建ROI并在此ROI上应用眼部检测（因为眼睛总是在脸上!!!）。
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+    for (x, y, w, h) in faces:
+        img = cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        roi_gray = gray[y:y + h, x:x + w]
+        roi_color = img[y:y + h, x:x + w]
+        eyes = eye_cascade.detectMultiScale(roi_gray)
+        for (ex, ey, ew, eh) in eyes:
+            cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
+    cv2.imwrite("../result/face_eye_detect.jpg", img)
 
 
 def eye_detect_save(img_path, filename):
@@ -191,6 +213,8 @@ if __name__ == '__main__':
     # eye_detect_2('../face/face01.jpg')
     # profile_face('../face/face06.jpg')
     # smile_detect('../face/face08.jpg')
+    # 检测人脸和眼睛
+    # face_eye_detect('../face/face12.jpg')
     # 遍历face文件夹 输出 人眼检测 输出 标记到 result文件夹
     for dirpath, dirnames, filenames in os.walk('../face'):
         for filename in filenames:
