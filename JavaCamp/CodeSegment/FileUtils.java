@@ -20,6 +20,45 @@ public class FileUtils{
         System.out.println("Hello File Utils!");        
     }
 
+    //写入字符串到文件
+    public static void writeStringToFile(String filePath, String content) {
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(content);
+            bw.close();
+            fw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    //读取文件内容到字符串
+    public static String readFileToString(String filePath) {
+        StringBuffer sb = new StringBuffer();
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                return null;
+            }
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            br.close();
+            fr.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
     //获取文件后缀名
     public static String getFileExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
