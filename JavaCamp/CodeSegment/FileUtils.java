@@ -59,6 +59,27 @@ public class FileUtils{
         return sb.toString();
     }
 
+    //读取文件内容到字符串
+    public static String readFileToString(File file){
+        StringBuffer sb = new StringBuffer();
+        try {
+            if (!file.exists()) {
+                return null;
+            }
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            br.close();
+            fr.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
     //获取文件后缀名
     public static String getFileExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
