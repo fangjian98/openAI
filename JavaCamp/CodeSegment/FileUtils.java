@@ -223,6 +223,23 @@ public class FileUtils{
         dir.mkdir();
     }
 
+    //删除文件夹
+    public static void deleteDir(String dirName) {
+        File dir = new File(dirName);
+        deleteDir(dir);
+    }
+
+    //删除文件夹 using File
+    public static void deleteDir(File dir) {
+        if (dir.isDirectory()) {
+            File[] files = dir.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                deleteDir(files[i]);
+            }
+        }
+        dir.delete();
+    }
+
     //创建文件
     public static void createFile(String fileName) {
         File file = new File(fileName);
