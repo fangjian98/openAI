@@ -17,6 +17,23 @@ public class StringsUtils {
         return str.substring(startIndex + start.length(), endIndex);
     }
 
+    //正则表达式将一串数字中每2位添加一个冒号
+    public static String addColon(String str) {
+        return str.replaceAll("(.{2})", "$1:");
+    }
+
+    //正则表达式将一串数字中每2位添加一个冒号,结尾不加冒号
+    public static String addColon2(String str) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            sb.append(str.charAt(i));
+            if (i % 2 == 1 && i != str.length() - 1) {
+                sb.append(":");
+            }
+        }
+        return sb.toString();
+    }
+
     //截取字符串 using String start
     public static String subStartString(String str, String start) {
         int startIndex = str.indexOf(start);
