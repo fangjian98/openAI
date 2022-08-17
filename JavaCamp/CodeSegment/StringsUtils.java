@@ -1,5 +1,9 @@
 package CodeSegment;
 
+import java.text.DecimalFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StringsUtils {
     public static void main(String[] args) {
         System.out.println("Hello Strings Utils!");
@@ -8,6 +12,25 @@ public class StringsUtils {
     //判断字符串是否为空
     public static boolean isEmpty(String str) {
         return str == null || str.length() == 0;
+    }
+    
+    //判断字符串是否不为空且不为空格
+    public static boolean isBlanket(String str) {
+        return str == null || str.length() == 0 || str.trim().length() == 0;
+    }
+
+    //判断字符串是否为空或者全部为空格
+    public static boolean isBlank(String str) {
+        int length = str.length();
+        if (length == 0) {
+            return true;
+        }
+        for (int i = 0; i < length; i++) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     //截取字符串 using String start and String end
@@ -90,6 +113,40 @@ public class StringsUtils {
     //替换字符串
     public static String replace(String str, String oldStr, String newStr) {
         return str.replace(oldStr, newStr);
+    }
+
+    //替换所有字符串
+    public static String replaceAll(String str, String oldStr, String newStr) {
+        return str.replaceAll(oldStr, newStr);
+    }
+
+    //去除字符串中的所有的空格/换行/制表符
+    public static String trim(String str) {
+        return str.replaceAll("\\s*", "");
+    }
+
+    //使用正则表达式去除字符串中的所有的空格/换行/制表符
+    public static String replaceBlank(String content) {
+        String dest = "";
+        if (content != null) {
+            Pattern p = Pattern.compile("\t|\r|\n");
+            Matcher m = p.matcher(content);
+            dest = m.replaceAll("");
+        }
+        return dest;
+    }
+
+    //格式化数字：千分位分隔符
+    public static String formatNumber(String number) {
+        DecimalFormat df = new DecimalFormat("#,###");
+        return df.format(Double.parseDouble(number));
+    }
+
+    //使用正则表达式格式化数字：千分位分隔符
+    public static String formatMoreNumber(String num) {
+        StringBuffer tmp = new StringBuffer().append(num).reverse();
+        String retNum = Pattern.compile("(\\d{3})(?=\\d)").matcher(tmp.toString()).replaceAll("$1,");
+        return new StringBuffer().append(retNum).reverse().toString();
     }
 
     //比较字符串
